@@ -39,9 +39,6 @@ namespace InvestmentAppProd.Controllers
         [HttpPost]
         public ActionResult<Investment> AddInvestment([FromBody] Investment investment)
         {
-            // TODO: Cant find this in the requirements.
-            if (investment.StartDate > DateTime.Now)
-                return BadRequest("Investment Start Date cannot be in the future.");
             investment.CalculateValue();
             _context.InsertInvestment(investment);
             return CreatedAtAction("AddInvestment", investment.Name, investment);
@@ -52,9 +49,6 @@ namespace InvestmentAppProd.Controllers
         {
             if (name != investment.Name)
                 return BadRequest("Name does not match the Investment you are trying to update.");
-            // TODO: Cant find this in the requirements.
-            if (investment.StartDate > DateTime.Now)
-                return BadRequest("Investment Start Date cannot be in the future.");
 
             investment.CalculateValue();
             _context.UpdateInvestment(investment);
