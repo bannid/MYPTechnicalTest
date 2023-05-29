@@ -11,10 +11,10 @@ namespace InvestmentAppProd.Data
     {
 
         public List<Investment> GetInvestments();
-        public Investment GetInvestment();
-        public bool InsertInvestment();
-        public bool UpdateInvestment();
-        public bool DeleteInvestment();
+        public Investment GetInvestment(string name);
+        public void InsertInvestment(Investment investment);
+        public void UpdateInvestment(Investment investment);
+        public void DeleteInvestment(string name);
 
     }
 }

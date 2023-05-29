@@ -5,27 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Repositories\IInvestementRepository.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Repositories\IInvestementRepository.cs">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IInvestementRepository.txt</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.17" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Repositories\IInvestementRepository.txt">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>IInvestementRepository.cs</DependentUpon>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

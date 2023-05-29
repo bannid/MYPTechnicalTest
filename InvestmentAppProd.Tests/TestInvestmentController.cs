@@ -87,7 +87,7 @@ namespace InvestmentAppProd.Tests
             var controller = new InvestmentController(context);
 
             // ACT
-            var result = controller.FetchInvestment();
+            var result = controller.FetchInvestment("");
             var obj = result.Result as ObjectResult;
             var objListResult = (List<Investment>)obj.Value;
             //var objCountResult = ((List<Investment>)obj.Value).Count();

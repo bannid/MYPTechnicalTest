@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using InvestmentAppProd.Data;
+using GlobalErrorHandling.Extensions;
 
 namespace InvestmentAppProd
 {
@@ -28,6 +29,7 @@ namespace InvestmentAppProd
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IInvestmentRepository, InvestmentDBContext>();
             //Using InMemoryDatabase, Database name set as "Investments".
             services.AddDbContext<InvestmentDBContext>(options => options.UseInMemoryDatabase("Investments"));
 
@@ -41,19 +43,17 @@ namespace InvestmentAppProd
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+            app.UseRouting();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InvestmentAppProd v1"));
             }
-
+            app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
-
-            app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
