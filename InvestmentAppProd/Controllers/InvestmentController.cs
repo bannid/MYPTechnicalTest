@@ -39,20 +39,18 @@ namespace InvestmentAppProd.Controllers
         [HttpPost]
         public ActionResult<Investment> AddInvestment([FromBody] Investment investment)
         {
-            investment.CalculateValue();
             _context.InsertInvestment(investment);
             return CreatedAtAction("AddInvestment", investment.Name, investment);
         }
 
-        [HttpPut("name")]
+        [HttpPut]
         public ActionResult UpdateInvestment([FromBody] Investment investment)
         {
-            investment.CalculateValue();
             _context.UpdateInvestment(investment);
             return NoContent();
         }
 
-        [HttpDelete("name")]
+        [HttpDelete]
         public ActionResult DeleteInvestment([FromQuery] string name)
         {
             _context.DeleteInvestment(name);

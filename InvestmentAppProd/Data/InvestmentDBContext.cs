@@ -32,6 +32,7 @@ namespace InvestmentAppProd.Data
             {
                 throw new DuplicateInvestmentFoundException(String.Format("Investment with name {0} already exists", investment.Name));
             }
+            investment.CalculateValue();
             this.ChangeTracker.Clear();
             this.Investments.Add(investment);
             this.SaveChanges();
@@ -44,7 +45,7 @@ namespace InvestmentAppProd.Data
             {
                 throw new InvestmentNotFoundException(String.Format("Investment with name {0} is not found", investment.Name));
             }
-
+            investment.CalculateValue();
             this.ChangeTracker.Clear();
             this.Entry(investment).State = EntityState.Modified;
             this.SaveChanges();
