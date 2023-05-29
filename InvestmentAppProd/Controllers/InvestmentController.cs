@@ -45,14 +45,10 @@ namespace InvestmentAppProd.Controllers
         }
 
         [HttpPut("name")]
-        public ActionResult UpdateInvestment([FromQuery] string name, [FromBody] Investment investment)
+        public ActionResult UpdateInvestment([FromBody] Investment investment)
         {
-            if (name != investment.Name)
-                return BadRequest("Name does not match the Investment you are trying to update.");
-
             investment.CalculateValue();
             _context.UpdateInvestment(investment);
-
             return NoContent();
         }
 
