@@ -30,9 +30,10 @@ namespace InvestmentAppProd.Data
         {
             if (this.Investments.Contains(investment))
             {
-                throw new DuplicateInvestmentFoundException(String.Format("Investment with name {0} already exists", investment.Name));
+                throw new InvestmentBaseException(String.Format("Investment with name {0} already exists", investment.Name), System.Net.HttpStatusCode.BadRequest);
             }
-            investment.CalculateValue();
+            investment.Validate();
+            investment.CalculateValue(DateTime.Now);
             this.ChangeTracker.Clear();
             this.Investments.Add(investment);
             this.SaveChanges();
@@ -43,9 +44,10 @@ namespace InvestmentAppProd.Data
             var existingInvestment = this.GetInvestment(investment.Name);
             if (existingInvestment == null)
             {
-                throw new InvestmentNotFoundException(String.Format("Investment with name {0} is not found", investment.Name));
+                throw new InvestmentBaseException(String.Format("Investment with name {0} is not found", investment.Name), System.Net.HttpStatusCode.NotFound);
             }
-            investment.CalculateValue();
+            investment.Validate();
+            investment.CalculateValue(DateTime.Now);
             this.ChangeTracker.Clear();
             this.Entry(investment).State = EntityState.Modified;
             this.SaveChanges();
@@ -56,7 +58,7 @@ namespace InvestmentAppProd.Data
             var investment = this.Investments.Find(name);
             if (investment == null)
             {
-                throw new InvestmentNotFoundException(String.Format("Investment with name {0} not found", name));
+                throw new InvestmentBaseException(String.Format("Investment with name {0} not found", name), System.Net.HttpStatusCode.NotFound);
             }
             this.ChangeTracker.Clear();
             this.Investments.Remove(investment);

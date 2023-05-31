@@ -146,7 +146,6 @@ namespace InvestmentAppProd.Tests
             CleanUp();
             Setup();
             var controller = new InvestmentController(context);
-            var updateInvestment = "Investment 2";
             var newInvestment = new Investment
             {
                 Name = "Investment 2",
@@ -157,7 +156,7 @@ namespace InvestmentAppProd.Tests
             };
 
             // Act
-            var result = controller.UpdateInvestment(updateInvestment, newInvestment);
+            var result = controller.UpdateInvestment(newInvestment);
             var obj = result as NoContentResult;
 
             // Assert   : Status code 204 ("No Content")
